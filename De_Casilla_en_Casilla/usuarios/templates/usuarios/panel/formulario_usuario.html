@@ -1,0 +1,38 @@
+    {% extends 'usuarios/base.html' %}
+
+{% block title %}
+    {% if object %}Editar Usuario{% else %}Nuevo Usuario{% endif %} | Panel Admin
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 mt-4">
+        <div class="caja-sombra">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3>
+                    {% if object %}
+                        Editar Usuario: <span class="text-primary">{{ object.username }}</span>
+                    {% else %}
+                        Crear Nuevo Usuario
+                    {% endif %}
+                </h3>
+                <a href="{% url 'panel_usuarios_lista' %}" class="btn btn-outline-secondary btn-sm">Volver a la lista</a>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                
+                {{ form.as_p }}
+                
+                <div class="d-flex justify-content-end mt-4">
+                    <a href="{% url 'panel_usuarios_lista' %}" class="btn btn-secondary me-2">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">
+                        {% if object %}Guardar Cambios{% else %}Crear Usuario{% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

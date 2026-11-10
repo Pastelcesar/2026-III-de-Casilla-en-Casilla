@@ -1,26 +1,41 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista De Preguntas</title>
-</head>
-<body>
-    <h1>Preguntas Existentes</h1>
-    <a href="{% url 'crear_pregunta' %}">Crear una nueva pregunta</a>
-    <hr>
-    
-    <ul>
-     {% for pregunta in preguntas %}
-     <li>
-    <strong>{{ pregunta.texto_pregunta }}</strong>
-     
-    (Avanza: {{ pregunta.casillas_avanza }} | Retrocede: {{ pregunta.casillas_retrocede }})
-    <a href="{% url 'editar_pregunta' pregunta.id %}">[Editar]</a>
-    <a href="{% url 'eliminar_pregunta' pregunta.id %}">[Eliminar]</a>
-        </li>
-     {% empty %}
-     <li>No hay preguntas registradas todavía.</li>
-     {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Preguntas | De Casilla en Casilla{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="mb-1">Preguntas</h1>
+        <p class="text-muted mb-0">Preguntas registradas por nivel y sus respuestas.</p>
+    </div>
+    {% if puede_editar_preguntas %}
+        <a href="{% url 'crear_pregunta' %}" class="btn btn-primary">Crear pregunta</a>
+    {% endif %}
+</div>
+
+{% for pregunta in preguntas %}
+    <article class="card mb-3">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start gap-3">
+                <div>
+                    <span class="badge bg-secondary mb-2">{{ pregunta.nivel.nombre }}</span>
+                    <h2 class="h5">{{ pregunta.texto }}</h2>
+                </div>
+                {% if puede_editar_preguntas %}
+                    <div class="text-nowrap">
+                        <a href="{% url 'editar_pregunta' pregunta.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a href="{% url 'eliminar_pregunta' pregunta.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                    </div>
+                {% endif %}
+            </div>
+            <ul class="mb-0">
+                <li><strong>Correcta:</strong> {{ pregunta.respuesta_correcta }}</li>
+                <li><strong>Incorrecta:</strong> {{ pregunta.respuesta_incorrecta_1 }}</li>
+                <li><strong>Incorrecta:</strong> {{ pregunta.respuesta_incorrecta_2 }}</li>
+            </ul>
+        </div>
+    </article>
+{% empty %}
+    <div class="alert alert-info">No hay preguntas registradas todavía.</div>
+{% endfor %}
+{% endblock %}

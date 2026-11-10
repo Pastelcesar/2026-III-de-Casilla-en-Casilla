@@ -1,0 +1,25 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Iniciar Sesión | De Casilla en Casilla{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5 mt-5">
+        <div class="caja-sombra">
+            <h3 class="text-center mb-4">Iniciar Sesión</h3>
+            
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }} 
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary">Entrar al Sistema</button>
+                </div>
+            </form>
+            
+            <p class="text-center mt-3">
+                ¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate aquí</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

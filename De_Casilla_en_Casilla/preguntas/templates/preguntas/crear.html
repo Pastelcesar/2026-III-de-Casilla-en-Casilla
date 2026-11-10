@@ -1,19 +1,24 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Preguntas profesores</title>
-</head>
-<body>
-    <h1>Añadir Nuevas Preguntas</h1>
-    
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }} 
-        <button type="submit">Guardar pregunta</button>
-    </form>
-    
-    <br>
-    <a href="{% url 'lista_preguntas' %}">Volver a lista de preguntas</a>
-</body>
-</html>
+{% extends 'usuarios/base.html' %}
+
+{% block title %}{% if object %}Editar{% else %}Crear{% endif %} pregunta | De Casilla en Casilla{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="caja-sombra">
+            <h1 class="h3 mb-4">{% if object %}Editar pregunta{% else %}Crear pregunta{% endif %}</h1>
+            {% if not form.fields.nivel.queryset %}
+                <div class="alert alert-warning">
+                    No hay niveles registrados. Pide a un administrador que agregue un nivel desde el panel de administración antes de crear preguntas.
+                </div>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Guardar pregunta</button>
+                <a href="{% url 'lista_preguntas' %}" class="btn btn-outline-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

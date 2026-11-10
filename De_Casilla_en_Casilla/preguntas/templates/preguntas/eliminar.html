@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Eliminar Pregunta</title>
-</head>
-<body>
-    <h1>¿Eliminar Pregunta?</h1>
-    <p>¿Estás seguro que deseas eliminar la pregunta: <strong>"{{ object.texto_pregunta }}"</strong>?</p>
-    
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Sí, eliminar</button>
-        <a href="{% url 'lista_preguntas' %}">Cancelar</a>
-    </form>
-</body>
-</html>
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Eliminar pregunta | De Casilla en Casilla{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="caja-sombra">
+            <h1 class="h3">¿Eliminar pregunta?</h1>
+            <p>¿Estás seguro de que deseas eliminar esta pregunta?</p>
+            <blockquote class="border-start border-3 ps-3">{{ object.texto }}</blockquote>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                <a href="{% url 'lista_preguntas' %}" class="btn btn-outline-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

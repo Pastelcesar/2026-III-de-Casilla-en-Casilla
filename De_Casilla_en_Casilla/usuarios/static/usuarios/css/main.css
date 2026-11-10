@@ -1,0 +1,17 @@
+
+body {
+    background-color: #f4f7f6; /* Un gris muy suave */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.caja-sombra {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 30px;
+}
+
+.brand-title {
+    color: #2c3e50;
+    font-weight: bold;
+}

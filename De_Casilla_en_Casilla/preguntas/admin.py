@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Nivel, Pregunta
 
-# Register your models here.
+admin.site.register(Nivel)
+admin.site.register(Pregunta)

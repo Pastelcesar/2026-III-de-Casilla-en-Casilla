@@ -1,0 +1,20 @@
+<!-- usuarios/templates/usuarios/403.html -->
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Acceso Denegado{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 mt-5 text-center">
+        <div class="caja-sombra border border-warning">
+            <h1 class="display-1 text-warning fw-bold">403</h1>
+            <h3 class="mb-4">Acceso Restringido</h3>
+            
+            <p class="lead">Hola <strong>{{ request.user.username }}</strong>, tu cuenta no tiene permiso para acceder a esta sección.</p>
+            <p class="text-muted">No tienes los permisos necesarios para entrar a esta sección o realizar esta acción.</p>
+            
+            <a href="{% url 'panel_usuarios_lista' %}" class="btn btn-primary mt-4">Volver al Panel</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

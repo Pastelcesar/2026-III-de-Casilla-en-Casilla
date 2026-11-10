@@ -1,0 +1,72 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Gestión de Usuarios{% endblock %}
+
+{% block content %}
+<div class="caja-sombra mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Panel de Usuarios</h2>
+
+        {% if request.user.puede_crear_usuarios or request.user.is_superuser %}
+            <a href="{% url 'panel_usuario_crear' %}" class="btn btn-primary">+ Nuevo Usuario</a>
+        {% endif %}
+        {% if request.user.puede_crear_preguntas or request.user.is_superuser %}
+            <a href="{% url 'crear_pregunta' %}" class="btn btn-success">+ Crear pregunta</a>
+        {% endif %}
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Usuario</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Permisos</th>
+                    <th>Estado</th>
+                    {% if request.user.puede_administrar_usuarios or request.user.is_superuser %}
+                        <th>Acciones</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.telefono|default:"N/A" }}</td>
+                    <td>
+                        <div class="d-flex flex-wrap gap-1">
+                            {% if usuario.puede_ver_panel_usuarios %}<span class="badge bg-secondary">Ver usuarios</span>{% endif %}
+                            {% if usuario.puede_crear_usuarios %}<span class="badge bg-primary">Crear usuarios</span>{% endif %}
+                            {% if usuario.puede_administrar_usuarios %}<span class="badge bg-dark">Administrar usuarios</span>{% endif %}
+                            {% if usuario.puede_crear_preguntas %}<span class="badge bg-success">Preguntas</span>{% endif %}
+                            {% if not usuario.puede_ver_panel_usuarios and not usuario.puede_crear_usuarios and not usuario.puede_administrar_usuarios and not usuario.puede_crear_preguntas %}
+                                <span class="badge bg-light text-dark">Sin permisos adicionales</span>
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td>
+                        {% if usuario.is_active %}
+                            <span class="badge bg-success">Activo</span>
+                        {% else %}
+                            <span class="badge bg-danger">Inactivo</span>
+                        {% endif %}
+                    </td>
+                    {% if request.user.puede_administrar_usuarios or request.user.is_superuser %}
+                    <td>
+                        <a href="{% url 'panel_usuario_editar' usuario.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a href="{% url 'panel_usuario_eliminar' usuario.id %}" class="btn btn-sm btn-outline-danger">Borrar</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="100%" class="text-center text-muted">No hay usuarios registrados aún.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
