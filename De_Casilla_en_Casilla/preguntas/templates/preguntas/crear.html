@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Preguntas profesores</title>
+</head>
+<body>
+    <h1>Añadir Nuevas Preguntas</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }} 
+        <button type="submit">Guardar pregunta</button>
+    </form>
+    
+    <br>
+    <a href="{% url 'lista_preguntas' %}">Volver a lista de preguntas</a>
+</body>
+</html>

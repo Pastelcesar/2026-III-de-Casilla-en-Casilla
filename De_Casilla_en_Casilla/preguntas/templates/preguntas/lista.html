@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista De Preguntas</title>
+</head>
+<body>
+    <h1>Preguntas Existentes</h1>
+    <a href="{% url 'crear_pregunta' %}">Crear una nueva pregunta</a>
+    <hr>
+    
+    <ul>
+     {% for pregunta in preguntas %}
+     <li>
+    <strong>{{ pregunta.texto_pregunta }}</strong>
+     
+    (Avanza: {{ pregunta.casillas_avanza }} | Retrocede: {{ pregunta.casillas_retrocede }})
+    <a href="{% url 'editar_pregunta' pregunta.id %}">[Editar]</a>
+    <a href="{% url 'eliminar_pregunta' pregunta.id %}">[Eliminar]</a>
+        </li>
+     {% empty %}
+     <li>No hay preguntas registradas todavía.</li>
+     {% endfor %}
+    </ul>
+</body>
+</html>
