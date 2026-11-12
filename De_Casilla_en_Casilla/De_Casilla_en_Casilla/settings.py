@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'usuarios',
     'game',
     'alumnos',
+    'preguntas',
 ]
 
 MIDDLEWARE = [
