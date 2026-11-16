@@ -3,6 +3,7 @@ __pycache__/
 venv/
 *.pyc
 __pycache__/
+*.py[cod]
 db.sqlite3
 .env
 .vscode/settings.json
